@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Calendar, CheckCircle2 } from 'lucide-react';
 
 const DiagramaGantt = () => {
-  const [completadas, setCompletadas] = useState([]);
+  const [completadas, setCompletadas] = useState<number[]>([]);
 
   const fechaInicio = new Date(2025, 9, 22);
   const fechaFin = new Date(2026, 1, 13);
@@ -269,7 +269,7 @@ const DiagramaGantt = () => {
       semanaInicio: 13, 
       duracion: 1, 
       color: "bg-orange-500",
-      objetivo: "Realizar pruebas exhaustivas",
+      objetivo: "Realizar pruebas",
       actividades: ["Pruebas en dispositivos", "Verificar responsive"],
       recursos: ["Dispositivos de prueba", "Smartphone, tablet"],
       responsables: "Juan David, Daniel"
@@ -280,7 +280,7 @@ const DiagramaGantt = () => {
       semanaInicio: 13, 
       duracion: 1, 
       color: "bg-orange-500",
-      objetivo: "Realizar pruebas exhaustivas",
+      objetivo: "Realizar pruebas",
       actividades: ["Pruebas de carga", "Optimizar velocidad"],
       recursos: ["Google PageSpeed", "GTmetrix"],
       responsables: "Juan David, Daniel"
@@ -291,7 +291,7 @@ const DiagramaGantt = () => {
       semanaInicio: 14, 
       duracion: 1, 
       color: "bg-orange-500",
-      objetivo: "Realizar pruebas exhaustivas",
+      objetivo: "Realizar pruebas",
       actividades: ["Corregir bugs", "Verificar funcionalidad"],
       recursos: ["Checklist de calidad", "Herramientas de testing"],
       responsables: "Juan David, Daniel"
@@ -302,7 +302,7 @@ const DiagramaGantt = () => {
       semanaInicio: 14, 
       duracion: 1, 
       color: "bg-orange-500",
-      objetivo: "Realizar pruebas exhaustivas",
+      objetivo: "Realizar pruebas",
       actividades: ["Pruebas con cliente", "Recopilar feedback"],
       recursos: ["Feedback del cliente", "Lista de verificación"],
       responsables: "Juan David, Daniel"
@@ -353,13 +353,7 @@ const DiagramaGantt = () => {
     }
   ];
 
-  const toggleTarea = (id) => {
-    setCompletadas(prev => 
-      prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]
-    );
-  };
-
-  const formatearFecha = (fecha) => {
+  const formatearFecha = (fecha: Date) => {
     const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
     return `${fecha.getDate()} ${meses[fecha.getMonth()]}`;
   };
@@ -420,9 +414,6 @@ const DiagramaGantt = () => {
         <div className="bg-white rounded-lg shadow-lg overflow-x-auto mb-8">
           <div className="min-w-max">
             <div className="flex border-b-2 border-gray-300 bg-gray-50">
-              <div className="w-43 p-3 font-bold text-gray-700 border-r-2 border-gray-300 flex-shrink-0">
-                Tareas
-              </div>
               <div className="w-35 p-3 font-bold text-gray-700 border-r border-gray-300 flex-shrink-0">
                 Objetivos
               </div>
@@ -445,18 +436,6 @@ const DiagramaGantt = () => {
 
             {tareas.map((tarea) => (
               <div key={tarea.id} className="flex border-b border-gray-200 hover:bg-gray-50">
-                <div className="w-43 p-3 border-r-2 border-gray-300 flex items-center gap-2 flex-shrink-0">
-                  <button onClick={() => toggleTarea(tarea.id)} className="flex-shrink-0">
-                    {completadas.includes(tarea.id) ? (
-                      <CheckCircle2 className="w-5 h-5 text-green-500" />
-                    ) : (
-                      <div className="w-5 h-5 border-2 border-gray-300 rounded-full"></div>
-                    )}
-                  </button>
-                  <span className={`text-sm ${completadas.includes(tarea.id) ? 'line-through text-gray-400' : 'text-gray-700'}`}>
-                    {tarea.nombre}
-                  </span>
-                </div>
                 
                 <div className="w-35 p-3 border-r border-gray-300 flex items-center flex-shrink-0">
                   <p className="text-xs text-gray-600">{tarea.objetivo}</p>
