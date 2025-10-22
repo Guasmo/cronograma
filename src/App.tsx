@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Calendar, CheckCircle2 } from 'lucide-react';
+import { useState } from 'react';
+import { Calendar } from 'lucide-react';
 
 const DiagramaGantt = () => {
-  const [completadas, setCompletadas] = useState<number[]>([]);
+  const [completadas] = useState<number[]>([]);
 
   const fechaInicio = new Date(2025, 9, 22);
   const fechaFin = new Date(2026, 1, 13);
